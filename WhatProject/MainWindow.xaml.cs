@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,6 +14,9 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+//using WhatProject.Models;
+using WhatProject.ViewModel;
+
 namespace WhatProject
 {
     /// <summary>
@@ -23,6 +27,20 @@ namespace WhatProject
         public MainWindow()
         {
             InitializeComponent();
+        }
+
+        ICollectionView ItemList;
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            ThemeViewModel themeViewModel = new ThemeViewModel();
+            CollectionViewSource itemSourceList = new CollectionViewSource()
+            {
+                Source = themeViewModel.ThemeGridItems
+            };
+            ItemList = itemSourceList.View;
+
+            Themes.ItemsSource = ItemList;
         }
     }
 }
